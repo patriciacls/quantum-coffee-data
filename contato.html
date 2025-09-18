@@ -41,18 +41,30 @@
 					<section id="three">
 						<h2>Contato</h2>
 						<p>Caso queira entrar em contato, animada em compartilhar mais informações e trocar conhecimentos!</p>
+
 						<div class="row">
 							<div class="col-8 col-12-small">
-								<form method="post" action="#">
-									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-									</div>
-								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
+							<form id="contact-form">
+    <div class="form-group">
+        <input type="text" name="name" id="name" placeholder="Name" required>
+    </div>
+	<br>
+    <div class="form-group">
+        <input type="email" name="email" id="email" placeholder="Email" required>
+    </div>
+	<br>
+    <div class="form-group">
+        <input type="text" name="subject" id="subject" placeholder="Subject" required>
+    </div>
+	<br>
+    <div class="form-group">
+        <textarea name="message" id="message" placeholder="Message" rows="4" required></textarea>
+    </div>
+	<br>
+    <div class="form-group">
+        <input type="submit" value="Send Message" />
+    </div>
+</form>
 							</div>
 							<div class="col-4 col-12-small">
 								<ul class="labeled-icons">
@@ -363,12 +375,38 @@
 			</footer>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
+		<!-- 	<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.poptrox.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="assets/js/main.js"></script> -->
 
+			<!--envio com o emaijs-->
+			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script type="text/javascript">
+   // Substitua pelos seus IDs reais!
+   const serviceID = 'service_67l7qtj';
+   const templateID = 'template_48ssmii';
+   const publicKey = 'LXsFF4mNcHMIeLVJa';
+
+   // Inicializa o EmailJS com sua chave pública
+   emailjs.init(publicKey);
+
+   // Adiciona um "ouvinte" para o evento de envio do formulário
+   document.getElementById('contact-form').addEventListener('submit', function(event) {
+       event.preventDefault(); // Impede o envio padrão do formulário (que recarregaria a página)
+
+       // Envia o formulário
+       emailjs.sendForm(serviceID, templateID, this)
+           .then(() => {
+               // Ação de sucesso: mostra uma mensagem, limpa o formulário, etc.
+               alert('Mensagem enviada com sucesso!');
+           }, (err) => {
+               // Ação de erro: mostra uma mensagem de erro
+               alert(JSON.stringify(err));
+           });
+   });
+</script>
 	</body>
 </html>
